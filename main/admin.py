@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import *
 
-@admin.register(Task)
+@admin.register(Musician)
 class TaskAdmin(admin.ModelAdmin):
     pass

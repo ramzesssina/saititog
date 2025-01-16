@@ -1,5 +1,7 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
+
 
 class Task(models.Model):
 
@@ -23,6 +25,7 @@ class Musician(models.Model):
     cat = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='posts')
     tags = models.ManyToManyField('TagPost', blank=True, related_name='tags')
     alive = models.OneToOneField('Alive', on_delete=models.SET_NULL, null=True, blank=True, related_name='alive')
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
