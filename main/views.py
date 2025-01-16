@@ -15,11 +15,11 @@ from .models import Musician, Category
 from .serializers import MusicianSerializer
 
 
-
 class MusicianAPIListPagination(PageNumberPagination):
     page_size = 3
     page_size_query_param = 'page_size'
     max_page_size = 10000
+
 
 '''class MusicianViewSet(
                       mixins.CreateModelMixin,
@@ -46,7 +46,6 @@ class MusicianAPIListPagination(PageNumberPagination):
         return Response({'cats': cats.name})'''
 
 
-
 class MusicianAPIList(generics.ListCreateAPIView):
     queryset = Musician.objects.all()
     serializer_class = MusicianSerializer
@@ -58,7 +57,8 @@ class MusicianAPIUpdate(generics.RetrieveUpdateAPIView):
     queryset = Musician.objects.all()
     serializer_class = MusicianSerializer
     permission_classes = (IsAuthenticated, )
-    #authentication_classes = (TokenAuthentication, )
+    # authentication_classes = (TokenAuthentication, )
+
 
 class MusicianAPIDestroy(generics.RetrieveDestroyAPIView):
     queryset = Musician.objects.all()
@@ -66,7 +66,7 @@ class MusicianAPIDestroy(generics.RetrieveDestroyAPIView):
     permission_classes = (IsAdminOrReadOnly, )
 
 
-#class MusicianAPIView(generics.ListAPIView):
+# class MusicianAPIView(generics.ListAPIView):
 #    queryset = Musician.objects.all()
 #    serializer_class = MusicianSerializer
 
@@ -91,7 +91,6 @@ def show_post(request, post_slug):
     return render(request, 'main/post.html', data)
 
 
-#def show_category(request, cat_slug):
+# def show_category(request, cat_slug):
 #    category = get_object_or_404(Category, slug=cat_slug)
 #    return render(request, 'main/index.html')
-
