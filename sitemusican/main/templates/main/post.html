@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+{% load musican_tags %}
+{% block content %}
+{% if post.photo %}
+<p><img class="img-article-left" src="{{post.photo.url}}"></p>
+{% endif %}
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; margin-bottom: 5px;">
+        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <svg class="bi pe-none me-2" width="40" height="32"></svg>
+            <span class="fs-4">Категории</span>
+        </a>
+        <hr>
+    {% show_categories cat_selected %}
+    </div>
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <main class="px-3">
+    <h1>{{post.title}}</h1>
+    <p class="lead">{{post.content}}</p>
+  </main>
+</div>
+
+
+{% endblock %}

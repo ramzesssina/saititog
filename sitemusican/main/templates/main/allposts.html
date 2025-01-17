@@ -1,0 +1,71 @@
+{% extends 'main/base.html' %}
+{% load musican_tags %}
+{% block content %}
+
+<style>
+    .nav-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; margin-bottom: 5px;">
+        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <span class="fs-4">Категории</span>
+        </a>
+        <hr>
+        {% show_categories cat_selected %}
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-grow-1 p-4">
+        <h1>{{ title }}</h1>
+        <ul>
+            {% for p in posts %}
+            {% if p.is_published %}
+            <li>
+                <h2>{{ p.title }}</h2>
+                <p>{{ p.content }}</p>
+                <p><a href="{% url 'post' p.slug %}">Читать пост</a></p>
+                {% if not forloop.last %}
+                <hr>
+                {% endif %}
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+
+        <!-- Пагинация -->
+        <nav aria-label="Pagination">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% for p in page_obj.paginator.page_range %}
+                {% if p == page_obj.number %}
+                <li class="page-item active"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+                {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>
+
+{% endblock %}
