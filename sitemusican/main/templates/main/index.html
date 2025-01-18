@@ -1,0 +1,124 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Моя страница
+{% endblock %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+
+<div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+    <div class="col-lg-6 px-0">
+      <h1 class="display-4 fst-italic">Сайт, в котором собраны музыканты всех времен</h1>
+      <p class="lead my-3">Всех времен, по мнению некого студента. Можете ознакомиться с небольшим количество статей, приведенных на нашем сайте.</p>
+      <p class="lead mb-0"><a href="{% url 'allposts' %}" class="text-body-emphasis fw-bold">Перейти к статьям</a></p>
+    </div>
+</div>
+
+<div class="row mb-2">
+    {% for p in posts %}
+    {% if forloop.first and p.is_published %}
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <h3 class="mb-0">{{ p.title }}</h3>
+          <div class="mb-1 text-body-secondary">{{ p.published_date }}</div>
+          <p class="card-text mb-auto">{{ p.content|truncatechars:90 }}</p>
+          <a href="{% url 'post' p.slug %}" class="icon-link gap-1 icon-link-hover stretched-link">
+            Читать пост
+            <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+          </a>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          {% if p.photo %}
+          <img class="img-article-left" src="{{ p.photo.url }}" alt="Thumbnail" width="200" height="250">
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if forloop.last and p.is_published %}
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <h3 class="mb-0">{{ p.title }}</h3>
+          <div class="mb-1 text-body-secondary">{{ p.published_date }}</div>
+          <p class="mb-auto">{{ p.content|truncatechars:90 }}</p>
+          <a href="{% url 'post' p.slug %}" class="icon-link gap-1 icon-link-hover stretched-link">
+            Читать пост
+            <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+          </a>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          {% if p.photo %}
+          <img class="img-article-left" src="{{ p.photo.url }}" alt="Thumbnail" width="200" height="250">
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+<div class="container">
+  <div class="col-md-8">
+        <h3 class="pb-4 mb-4 fst-italic border-bottom">
+          Из пожарного шланга
+        </h3>
+
+        <article class="blog-post">
+          <h2 class="display-5 link-body-emphasis mb-1">Музыкальный Привет!</h2>
+          <p class="blog-post-meta">Январь 10, 2025 by admin</a></p>
+
+          <p>Этот блог посвящён внедрению в мою историю. Хочу поделиться, почему я выбрал именно музыкальную тематику для своего проекта.</p>
+          <hr>
+          <p>Музыка всегда занимала важное место в моей жизни. Она вдохновляет, помогает выражать эмоции и создаёт особую атмосферу. Мне захотелось объединить своё увлечение музыкой с навыками, которые я развиваю. Поэтому я решил создать музыкальный сайт — платформу, где можно прочитать стать о музыкантах, узнавать о новых исполнителях.</p>
+          <h2>Немного истории</h2>
+          <blockquote class="blockquote">
+            <p>Меня в 14 лет выгнали с музыкальной школы.</p>
+          </blockquote>
+          <p>Причем не из-за оценок, а из-за моего возраста, слишком большим пошел - не успел бы закончить до 17 лет. Нужно было платить деньги за обучение, что не могли себе позволить. Да и я не хотел.</p>
+          <h3>Я (был) панк!</h3>
+          <p>Уйдя, я перестал играть по нотам, начам учить рифы, мне пришла гениальная мысль купить электрическую гитару. Начал отращивать патлы и ходить в старых вещах (гранж).</p>
+          <ul>
+            <li>SSSHHHIIITTT!!!</li>
+            <li>Пасош</li>
+            <li>Джизус</li>
+          </ul>
+          <p>Исполнители, которых я слушал до дыр.</p>
+          </ol>
+          <dl>
+            <dt>Выступление в актовом зале школы</dt>
+            <dd>Давали концерты в школе, собирались в гараже для репетиций</dd>
+            <dt>Вечно недовольное лицо</dt>
+            <dd>Почему-то было очень модно быть несчастливым</dd>
+            <dt>Длинные волосы</dt>
+            <dd>Я хотел волосы как у Курта Кобейна. Но я был похож на Гоголя нового времени.</dd>
+          </dl>
+        </article>
+
+        <article class="blog-post">
+          <h2 class="display-5 link-body-emphasis mb-1">Ну а что сейчас?</h2>
+
+          <p>Время не стоит на месте, как бы сильно этого не хотелось. Смена интересов привела к тому, что пришлось состричь волосы, перестать носить старые кардиганы, джинсы, выбросить кеды, которые я запрещал маме стирать.</p>
+          <blockquote>
+            <p>Увлечение спортом, а главное таким, как <strong>баскетбол</strong>, поменял мою жизнь.</p>
+          </blockquote>
+          <p>Я начал общаться с людьми, которые имеют более высокие цели, чем всю жизнь играть по кабакам или на улице. Бегать и тренироваться мне понравилось больше, чем сидеть в грязном гараже, играть на гитарах и барабанах, попивая пиво.</p>
+          <p>Настолько понравилось, что даже девушку нашел. Щас работаю, чтобы оплатить ее очередные новые кофточки...</p>
+          <hr>
+          <p>(Я не жалуюсь)</p>
+        </article>
+
+        <article class="blog-post">
+          <h2 class="display-5 link-body-emphasis mb-1">Ну а что на сегодня?</h2>
+          <p>А на сегодня ничего интересного, на гитаре я уже как 2 года не играю вообще. Раньше хоть выделял время, чтобы выучить что-нибудь, чтобы форму не терять. Забыл ноты давным давно. Но музыка все равно явлеется моим основным хобби. Анализирую тексы, слушаю новые альбомы моих любимых исполнителей. Сравниваю старые и новые работы исполнителей</p>
+
+          <p>Слушайте музыку. Слушайте хорошую музыку, слушайте много музыки.</p>
+        </article>
+  </div>
+</div>
+{% include 'main/include/nav.html' %}
+
+{% endblock %}

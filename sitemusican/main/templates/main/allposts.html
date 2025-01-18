@@ -1,0 +1,105 @@
+{% extends 'main/base.html' %}
+{% load musican_tags %}
+{% block content %}
+
+<style>
+    .content-container {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .sidebar {
+        width: 280px;
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-content {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 100px);
+    }
+
+    .posts {
+        flex-grow: 1;
+    }
+
+    .pagination-container {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="content-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h4>Категории</h4>
+        <hr>
+        {% show_categories cat_selected %}
+        <hr>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <h1>{{ title }}</h1>
+        <hr>
+
+        <!-- Список статей -->
+        <div class="posts">
+            <ul>
+                {% for p in posts %}
+                {% if p.is_published %}
+                <li>
+                    <h2>{{ p.title }}</h2>
+                    <p>{{ p.content |truncatechars:250 }}</p>
+                    <p><a href="{% url 'post' p.slug %}">Читать пост</a></p>
+                    {% if not forloop.last %}
+                    <hr>
+                    {% endif %}
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+            <hr>
+        </div>
+
+        <!-- Пагинация -->
+        <div class="pagination-container">
+            <nav aria-label="Pagination">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% for p in page_obj.paginator.page_range %}
+                    {% if p == page_obj.number %}
+                    <li class="page-item active"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

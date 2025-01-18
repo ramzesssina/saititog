@@ -1,0 +1,51 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+<h1 class="text-center">Обратная связь</h1>
+
+<div class="d-flex justify-content-center align-items-center flex-column">
+    <p class="text-center">Вы можете связаться с нами через социальные сети:</p>
+
+    <div class="d-flex justify-content-center">
+        <!-- VK Icon -->
+        <a href="https://vk.com/got_ball" target="_blank" class="mx-2 text-decoration-none">
+            <img src="{% static 'svg/icons8-vk.svg' %}" alt="VK" width="40" height="40" class="social-icon" />
+        </a>
+
+        <!-- Telegram Icon -->
+        <a href="#" target="_blank" class="mx-2 text-decoration-none">
+            <img src="{% static 'svg/icons8-telegram.svg' %}" alt="Telegram" width="40" height="40" class="social-icon">
+        </a>
+
+        <!-- Instagram Icon -->
+        <a href="#" target="_blank" class="mx-2 text-decoration-none">
+            <img src="{% static 'svg/icons8-instagram.svg' %}" alt="Instagram" width="40" height="40" class="social-icon">
+        </a>
+
+        <!-- Email Icon -->
+        <a href="#" class="mx-2 text-decoration-none">
+            <img src="{% static 'svg/icons8-mail.svg' %}" alt="Email" width="40" height="40" class="social-icon">
+        </a>
+    </div>
+</div>
+
+<style>
+    .social-icon {
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .social-icon:hover {
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+
+    .text-center {
+        margin-top: 20px;
+        font-weight: bold;
+    }
+
+    .d-flex {
+        margin-top: 30px;
+    }
+</style>
+{% endblock %}
